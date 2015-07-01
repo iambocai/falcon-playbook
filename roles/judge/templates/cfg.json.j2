@@ -1,0 +1,38 @@
+{
+    "debug": {{ judge['debug']|lower }},
+    "debugHost": "{{ judge['debugHost'] }}",
+    "remain": {{ judge['remain'] }}, 
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ judge['http']['listen'] }}"
+    },
+    "rpc": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ judge['rpc']['listen'] }}"
+    },
+    "hbs": {
+        "servers": [
+{% for host in groups['hbs'] %}
+{% if loop.last %}
+            "{{ host }}:{{ hbs['rpc']['listen'] }}"
+{% else %}
+            "{{ host }}:{{ hbs['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
+        ],
+        "timeout": {{ judge['Hbs']['timeout'] }},
+        "interval": {{ judge['Hbs']['interval'] }}
+    },
+    "alarm": {
+        "enabled": {{ judge['alarm']['enabled']|lower }},
+        "minInterval": {{ judge['alarm']['minInterval'] }},
+        "queuePattern": "event:p%v",
+        "redis": {
+            "dsn": "{{ redis }}",
+            "maxIdle": {{ judge['alarm']['Redis']['maxIdle'] }},
+            "connTimeout": {{ judge['alarm']['Redis']['connTimeout'] }},
+            "readTimeout": {{ judge['alarm']['Redis']['readTimeout'] }},
+            "writeTimeout": {{ judge['alarm']['Redis']['writeTimeout'] }}
+        }
+    }
+}

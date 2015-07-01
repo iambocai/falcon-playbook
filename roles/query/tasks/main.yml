@@ -1,0 +1,16 @@
+---
+# file: roles/{{ module }}/tasks/main.yml
+
+- include: ../../common/tasks/go.yml
+
+- name: update {{ module }} backends
+  template:
+    src=graph_backends.txt.j2
+    dest={{ deploy_root }}/{{ module }}/graph_backends.txt
+    group={{ deploy_group }}
+    owner={{ deploy_user }}
+    mode=0755
+    backup=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status

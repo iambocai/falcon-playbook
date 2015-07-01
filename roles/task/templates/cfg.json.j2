@@ -1,0 +1,65 @@
+{
+    "debug": {{ task['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ task['http']['listen'] }}"
+    },
+    "index": {
+        "enabled": true,
+        "dsn": "{{ dsn_task_graph }}",
+        "maxIdle": 4,
+        "cluster":[
+{% for host in groups['graph'] %}
+{% if loop.last %}
+            "{{ host }}:{{ graph['http']['listen'] }}"
+{% else %}
+            "{{ host }}:{{ graph['http']['listen'] }}",
+{% endif %}
+{% endfor %}
+            ]
+    },
+    "monitor" : {
+        "enabled": true,
+        "mailUrl" : "{{ task['monitor']['mailUrl'] }}",
+        "mailTos" : "{{ task['monitor']['mailTos'] }}",
+        "cluster" : [
+{% for item in task['monitor']['cluster'] %}
+{% if not loop.last %}
+{% for host in groups[item] %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}/health",
+{% endfor %}
+{% else %}
+{% for host in groups[item] %}
+{% if not loop.last %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}/health",
+{% else %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}/health"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+        ]
+    },
+    "collector":{
+        "enabled": true,
+        "destUrl" : "http://127.0.0.1:1988/v1/push",
+        "srcUrlFmt" : "http://%s/statistics/all",
+        "cluster" : [
+{% for item in task['collector']['cluster'] %}
+{% if not loop.last %}
+{% for host in groups[item] %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}",
+{% endfor %}
+{% else %}
+{% for host in groups[item] %}
+{% if not loop.last %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}",
+{% else %}
+            "{{ item }},{{ host }}:{{ port['http'][item] }}"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+        ]
+    }
+}

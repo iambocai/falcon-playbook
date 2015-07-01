@@ -1,0 +1,11 @@
+---
+# file:roles/common/tasks/main.yml
+
+- name: ensure deploy group exist
+  group: name={{ deploy_group }} gid={{ deploy_gid }} state=present
+
+- name: ensure deploy user exist
+  user: name={{ deploy_user }} uid={{ deploy_uid }} group={{ deploy_group }} state=present createhome=yes
+
+- name: ensure deploy path permisstion 
+  file: path={{ deploy_root }} owner={{ deploy_user }} group={{ deploy_group }} mode="u+rwx" state=directory recurse=yes

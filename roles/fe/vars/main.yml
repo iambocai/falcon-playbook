@@ -1,0 +1,4 @@
+---
+# file:roles/fe/vars/main.yml
+
+module: fe

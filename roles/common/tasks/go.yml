@@ -1,0 +1,38 @@
+---
+# file: roles/{{ module }}/tasks/main.yml
+
+
+- name: compile {{ module }}
+  shell: export GOPATH={{ gopath }} && cd {{ gopath }}/{{ code_root }}/{{ module }} && go get ./... && ./control build && ./control pack && mv falcon-{{ module }}*.tar.gz {{ module }}.tar.gz
+  when: "'{{ module }}' in compile or 'all' in compile" 
+
+- name: make {{ module }} dir
+  file: 
+    path={{ deploy_root }}/{{ module }} 
+    owner={{ deploy_user }} 
+    group={{ deploy_group }} 
+    mode=0755 
+    state=directory
+
+- name: update {{ module }} code
+  unarchive:
+    src="{{ gopath }}/{{ code_root }}/{{ module }}/{{ module }}.tar.gz"
+    dest="{{ deploy_root }}/{{ module }}/"
+    owner={{ deploy_user }}
+    group={{ deploy_group }}
+    follow=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status
+
+- name: update {{ module }} conf
+  template: 
+    src=../../{{ module }}/templates/cfg.json.j2
+    dest={{ deploy_root }}/{{ module }}/cfg.json
+    group={{ deploy_group }}
+    owner={{ deploy_user }} 
+    mode=0755
+    backup=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status

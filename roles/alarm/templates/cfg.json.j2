@@ -1,0 +1,34 @@
+{
+    "debug": {{ alarm['debug']|lower }},
+    "uicToken": "{{ alarm['uicToken'] }}",
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ alarm['http']['listen'] }}"
+    },
+    "queue": {
+        "sms": "/sms",
+        "mail": "/mail"
+    },
+    "redis": {
+        "addr": "{{ redis }}",
+        "maxIdle": {{ alarm['Redis']['maxIdle'] }},
+        "highQueues": [
+            "event:p0",
+            "event:p1",
+            "event:p2",
+            "event:p3",
+            "event:p4",
+            "event:p5"
+        ],
+        "lowQueues": [
+            "event:p6"
+        ],
+        "userSmsQueue": "/queue/user/sms",
+        "userMailQueue": "/queue/user/mail"
+    },
+    "api": {
+        "portal": "{{ portal_uri }}",
+        "uic": "{{ fe_uri }}",
+        "links": "{{ links_uri }}"
+    }
+}

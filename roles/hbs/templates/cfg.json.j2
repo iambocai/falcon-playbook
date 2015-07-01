@@ -1,0 +1,12 @@
+{
+    "debug": {{ hbs['debug']|lower }},
+    "database": "{{ hbs['database'] }}",
+    "hosts": "",
+    "maxIdle": {{ hbs['maxIdle'] }},
+    "listen": ":{{ hbs['rpc']['listen'] }}",
+    "trustable": [""],
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ hbs['http']['listen'] }}"
+    }
+}

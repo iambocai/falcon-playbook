@@ -1,0 +1,107 @@
+---
+# Site Configuration
+# ==================
+
+- hosts: agent
+  user: root
+  roles:
+    - common
+    - agent
+  tags:
+    - agent
+
+- hosts: transfer
+  user: root
+  roles:
+    - common
+    - transfer
+  tags:
+    - transfer
+
+- hosts: graph
+  user: root
+  roles:
+    - common
+    - graph
+  tags:
+    - graph
+
+- hosts: query
+  user: root
+  roles:
+    - common
+    - query
+  tags:
+    - query
+
+- hosts: dashboard
+  user: root
+  roles:
+    - common
+    - dashboard
+  tags:
+    - dashboard
+
+- hosts: sender
+  user: root
+  roles:
+    - common
+    - sender
+  tags:
+    - sender
+
+- hosts: fe
+  user: root
+  roles:
+    - common
+    - fe
+  tags:
+    - fe
+
+- hosts: portal
+  user: root
+  roles:
+    - common
+    - portal
+  tags:
+    - portal
+
+- hosts: hbs
+  user: root
+  roles:
+    - common
+    - hbs
+  tags:
+    - hbs
+
+- hosts: judge
+  user: root
+  roles:
+    - common
+    - judge
+  tags:
+    - judge
+
+- hosts: links
+  user: root
+  roles:
+    - common
+    - links
+  tags:
+    - links
+
+- hosts: alarm
+  user: root
+  roles:
+    - common
+    - alarm
+  tags:
+    - alarm
+
+- hosts: task
+  user: root
+  roles:
+    - common
+    - task
+  tags:
+    - task

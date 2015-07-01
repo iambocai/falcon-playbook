@@ -1,0 +1,17 @@
+---
+# file: 
+
+- name: install dependency
+  yum: name={{ item }} state=present
+  with_items:
+    - python-virtualenv
+    - python-pip
+    - mysql-devel
+    - python-devel
+    - MySQL-python
+
+- name: install {{ module }} env
+  pip: 
+    virtualenv="{{ deploy_root }}/{{ module }}/env"
+    requirements="{{ deploy_root }}/{{ module }}/pip_requirements.txt"
+    extra_args="-i http://pypi.douban.com/simple"

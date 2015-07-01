@@ -1,0 +1,4 @@
+---
+# file: roles/{{ module }}/tasks/main.yml
+
+- include: ../../common/tasks/go.yml

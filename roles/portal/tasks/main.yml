@@ -1,0 +1,4 @@
+---
+# file: roles/portal/tasks/main.yml
+
+- include: ../../common/tasks/python.yml

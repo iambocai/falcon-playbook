@@ -1,0 +1,34 @@
+# -*- coding:utf-8 -*-
+__author__ = 'Ulric Qin'
+
+# -- app config --
+DEBUG = {{ portal['config']['debug'] }}
+
+# -- db config --
+DB_HOST = "{{ dsn_portal_portal_host }}"
+DB_PORT =  {{ dsn_portal_portal_port }}
+DB_USER = "{{ dsn_portal_portal_user }}"
+DB_PASS = "{{ dsn_portal_portal_pass }}"
+DB_NAME = "{{ dsn_portal_portal_name }}"
+
+# -- cookie config --
+SECRET_KEY = "{{ portal['config']['secret_key'] }}"
+SESSION_COOKIE_NAME = "{{ portal['config']['session_cookie_name'] }}"
+PERMANENT_SESSION_LIFETIME = {{ portal['config']['permanent_session_lifetime'] }}
+
+UIC_ADDRESS = {
+    'internal': '{{ fe_uri }}',
+    'external': '{{ fe_ext_uri }}',
+}
+
+UIC_TOKEN = "{{ portal['config']['uic_token'] }}"
+
+MAINTAINERS = ['root']
+CONTACT = "{{ portal['config']['contact'] }}"
+
+COMMUNITY = True
+
+try:
+    from frame.local_config import *
+except Exception, e:
+    print "[warning] %s" % e

@@ -1,0 +1,4 @@
+---
+# file:roles/task/vars/main.yml
+
+module: task

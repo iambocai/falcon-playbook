@@ -1,0 +1,4 @@
+---
+# file:roles/hbs/vars/main.yml
+
+module: hbs

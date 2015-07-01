@@ -1,0 +1,4 @@
+---
+# file:roles/query/vars/main.yml
+
+module: query

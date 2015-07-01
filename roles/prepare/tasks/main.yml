@@ -1,0 +1,36 @@
+---
+# file:roles/prepare/tasks/main.yml
+
+- name: install epel
+  yum: name=epel-release state=present
+
+- name: install golang binary
+  yum: name={{ item }} state=present
+  with_items:
+    - golang
+    - golang-godoc
+  when:
+    - install_go_env
+
+- name: set GOPATH
+  template: src=golang.sh.j2 dest=/etc/profile.d/golang.sh group=root owner=root mode=0755
+  when:
+    - install_go_env
+
+- name: install compile tools and libs
+  yum: name={{ item }} state=present
+  with_items:
+    - "@development-tools"
+    - git
+    - mysql-libs
+    - mysql-devel
+    - python-pip
+    - python-devel
+    - python-virtualenv
+  when:
+    - install_compile_env
+
+- name: clone codes
+  git: repo=https://github.com/XiaoMi/open-falcon.git dest={{ gopath }}/{{ code_root }} recursive=yes
+  when:
+    - clone_code

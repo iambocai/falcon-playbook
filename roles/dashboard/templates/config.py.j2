@@ -1,0 +1,34 @@
+#-*-coding:utf8-*-
+import os
+
+#-- dashboard db config --
+DASHBOARD_DB_HOST   = "{{ dsn_dashboard_dashboard_host }}"
+DASHBOARD_DB_PORT   =  {{ dsn_dashboard_dashboard_port }}
+DASHBOARD_DB_USER   = "{{ dsn_dashboard_dashboard_user }}"
+DASHBOARD_DB_PASSWD = "{{ dsn_dashboard_dashboard_pass }}"
+DASHBOARD_DB_NAME   = "{{ dsn_dashboard_dashboard_name }}"
+
+#-- graph db config --
+GRAPH_DB_HOST   = "{{ dsn_dashboard_graph_host }}"
+GRAPH_DB_PORT   =  {{ dsn_dashboard_graph_port }}
+GRAPH_DB_USER   = "{{ dsn_dashboard_graph_user }}"
+GRAPH_DB_PASSWD = "{{ dsn_dashboard_graph_pass }}"
+GRAPH_DB_NAME   = "{{ dsn_dashboard_graph_name }}"
+
+#-- app config --
+DEBUG = {{ dashboard['config']['debug'] }}
+SECRET_KEY = "{{ dashboard['config']['secret_key'] }}"
+SESSION_COOKIE_NAME = "{{ dashboard['config']['session_cookie_name'] }}"
+PERMANENT_SESSION_LIFETIME = {{ dashboard['config']['permanent_session_lifetime'] }}
+SITE_COOKIE = "{{ dashboard['config']['site_cookie'] }}"
+
+#-- query config --
+QUERY_ADDR = "{{ query_uri }}"
+
+BASE_DIR = "{{ deploy_root }}/{{ module }}"
+LOG_PATH = os.path.join(BASE_DIR,"log/")
+
+try:
+    from rrd.local_config import *
+except:
+    pass

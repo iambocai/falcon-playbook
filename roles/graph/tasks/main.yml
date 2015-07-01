@@ -1,0 +1,10 @@
+---
+# file: roles/agent/tasks/main.yml
+
+- include: ../../common/tasks/go.yml
+
+- name: ensure rrd storage dir exist
+  file: path={{ graph['rrd']['storage'] }} owner={{ deploy_user }} group={{ deploy_group }} mode="u+rw" state=directory recurse=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status

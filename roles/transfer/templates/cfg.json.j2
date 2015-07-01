@@ -1,0 +1,55 @@
+{
+    "debug": {{ transfer['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ transfer['http']['listen'] }}"
+    },
+    "rpc": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ transfer['rpc']['listen'] }}"
+    },
+    "socket": {
+        "enabled": false,
+        "listen": "0.0.0.0:4444",
+        "timeout": 3600
+    },
+    "judge": {
+        "enabled": {{ transfer['judge']['enabled']|lower }},
+        "batch": {{ transfer['judge']['batch'] }},
+        "connTimeout": {{ transfer['judge']['connTimeout'] }},
+        "callTimeout": {{ transfer['judge']['callTimeout'] }},
+        "maxConns": {{ transfer['judge']['maxConns'] }},
+        "maxIdle": {{ transfer['judge']['maxIdle'] }},
+        "replicas": {{ transfer['judge']['replicas'] }},
+        "cluster": {
+{% for host in groups['judge'] %}
+{% if loop.last %}
+           "judge-{{ loop.index }}" : "{{ host }}:{{ judge['rpc']['listen'] }}"
+{% else %}
+           "judge-{{ loop.index }}" : "{{ host }}:{{ judge['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
+        }
+    },
+    "graph": {
+        "enabled": true,
+        "batch": 200,
+        "connTimeout": 1000,
+        "callTimeout": 5000,
+        "maxConns": 32,
+        "maxIdle": 32,
+        "replicas": 500,
+        "migrating": false,
+        "cluster": {
+{% for host in groups['graph'] %}
+{% if loop.last %}
+           "graph-{{ loop.index }}" : "{{ host }}:{{ graph['rpc']['listen'] }}"
+{% else %}
+           "graph-{{ loop.index }}" : "{{ host }}:{{ graph['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
+        },
+        "clusterMigrating": {
+        }
+    }
+}

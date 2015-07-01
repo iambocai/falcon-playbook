@@ -1,0 +1,57 @@
+---
+# file:
+
+- name: make {{ module }} package
+  shell: cd {{ gopath }}/{{ code_root }}/{{ module }}/ && ./control pack && mv falcon-{{ module }}*.tar.gz  {{ module }}.tar.gz
+  when:
+    - "'{{ module }}' in compile or 'all' in compile"
+
+- name: make {{ module }} dir
+  file:
+    path={{ deploy_root }}/{{ module }}
+    owner={{ deploy_user }}
+    group={{ deploy_group }}
+    mode=0755
+    state=directory
+
+- name: update {{ module }} code
+  unarchive: 
+    src="{{ gopath }}/{{ code_root }}/{{ module }}/{{ module }}.tar.gz"
+    dest="{{ deploy_root }}/{{ module }}/"
+    owner={{ deploy_user }}
+    group={{ deploy_group }}
+    follow=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status
+
+- name: update {{ module }} conf
+  template: 
+    src=../../{{ module }}/templates/config.py.j2
+    dest="{{ deploy_root }}/{{ module }}/{{ frame }}/config.py"
+    owner={{ deploy_user }}
+    group={{ deploy_group }}
+    mode=0600
+    follow=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status
+
+- name: update {{ module }} gunicorn.conf
+  template:
+    src=../../{{ module }}/templates/gunicorn.conf.j2
+    dest="{{ deploy_root }}/{{ module }}/gunicorn.conf"
+    owner={{ deploy_user }}
+    group={{ deploy_group }}
+    mode=0600
+    follow=yes
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status
+
+- include: python_env.yml
+  when: 
+    - "install_{{ module }}_env"
+  notify:
+    - restart {{ module }}
+    - check {{ module }} status

@@ -1,0 +1,4 @@
+---
+# file:roles/alarm/vars/main.yml
+
+module: alarm

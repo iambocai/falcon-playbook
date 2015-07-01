@@ -1,0 +1,4 @@
+---
+# file:roles/judge/vars/main.yml
+
+module: judge

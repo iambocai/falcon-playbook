@@ -1,0 +1,4 @@
+---
+# file:roles/graph/vars/main.yml
+
+module: graph

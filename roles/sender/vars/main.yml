@@ -1,0 +1,4 @@
+---
+# file:roles/sender/vars/main.yml
+
+module: sender

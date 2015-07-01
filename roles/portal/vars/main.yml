@@ -1,0 +1,5 @@
+---
+# file:roles/portal/vars/main.yml
+
+module: portal
+frame: frame

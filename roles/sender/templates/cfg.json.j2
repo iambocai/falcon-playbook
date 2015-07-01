@@ -1,0 +1,23 @@
+{
+    "debug": {{ sender['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ sender['http']['listen'] }}"
+    },
+    "redis": {
+        "addr": "{{ redis }}",
+        "maxIdle": {{ sender['Redis']['maxIdle'] }}
+    },
+    "queue": {
+        "sms": "/sms",
+        "mail": "/mail"
+    },
+    "worker": {
+        "sms": {{ sender['worker']['sms'] }},
+        "mail": {{ sender['worker']['mail'] }}
+    },
+    "api": {
+        "sms": "{{ sender['api']['sms'] }}",
+        "mail": "{{ sender['api']['mail'] }}"
+    }
+}

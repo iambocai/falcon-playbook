@@ -1,0 +1,4 @@
+---
+# file:roles/agent/vars/main.yml
+
+module: agent

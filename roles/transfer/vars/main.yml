@@ -1,0 +1,4 @@
+---
+# file:roles/transfer/vars/main.yml
+
+module: transfer

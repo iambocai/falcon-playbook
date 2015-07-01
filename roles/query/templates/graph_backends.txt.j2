@@ -1,0 +1,3 @@
+{% for host in groups['graph'] %}
+graph-{{ loop.index }} {{ host }}:{{ graph['rpc']['listen'] }}
+{% endfor %}

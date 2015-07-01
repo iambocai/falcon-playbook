@@ -1,0 +1,5 @@
+---
+# file:roles/links/vars/main.yml
+
+module: links
+frame: frame

@@ -1,0 +1,4 @@
+---
+# file: roles/{{ module }}/handlers/main.yml
+
+- include: ../../common/handlers/main.yml

@@ -1,0 +1,4 @@
+---
+# file: roles/hbs/tasks/main.yml
+
+- include: ../../common/tasks/go.yml

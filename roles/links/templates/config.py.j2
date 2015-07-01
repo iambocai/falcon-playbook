@@ -1,0 +1,22 @@
+# -*- coding:utf-8 -*-
+__author__ = 'Ulric Qin'
+
+# -- app config --
+DEBUG = {{ links['config']['debug'] }}
+
+# -- db config --
+DB_HOST = "{{ dsn_links_links_host }}"
+DB_PORT =  {{ dsn_links_links_port }}
+DB_USER = "{{ dsn_links_links_user }}"
+DB_PASS = "{{ dsn_links_links_pass }}"
+DB_NAME = "{{ dsn_links_links_name }}"
+
+# -- cookie config --
+SECRET_KEY = "{{ links['config']['secret_key'] }}"
+SESSION_COOKIE_NAME = "{{ links['config']['session_cookie_name'] }}"
+PERMANENT_SESSION_LIFETIME = {{ links['config']['permanent_session_lifetime'] }}
+
+try:
+    from frame.local_config import *
+except Exception, e:
+    print "[warning] %s" % e

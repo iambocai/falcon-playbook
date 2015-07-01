@@ -1,0 +1,35 @@
+{
+    "log": "{{ fe['log_level'] }}",
+    "company": "{{ fe['company'] }}",
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ fe['http']['listen'] }}"
+    },
+    "cache": {
+        "enabled": {{ fe['cache']['enabled']|lower }},
+        "redis": "{{ redis }}",
+        "idle": {{ fe['cache']['idle'] }},
+        "max": {{ fe['cache']['max'] }},
+        "timeout": {
+            "conn": {{ fe['cache']['timeout']['conn'] }},
+            "read": {{ fe['cache']['timeout']['read'] }},
+            "write": {{ fe['cache']['timeout']['write'] }}
+        }
+    },
+    "salt": "{{ fe['salt'] }}",
+    "canRegister": {{ fe['canRegister']|lower }},
+    "ldap": {
+        "enabled": {{ fe['ldap']['enabled']|lower }},
+        "addr": " {{ fe['ldap']['addr'] }}"
+    },
+    "uic": {
+        "addr": "{{ dsn_fe_uic }}",
+        "idle": {{ fe['uic']['idle'] }},
+        "max": {{ fe['uic']['max'] }}
+    },
+    "shortcut": {
+        "falconPortal": "{{ portal_uri }}",
+        "falconDashboard": "{{ dashboard_uri }}",
+        "falconAlarm": "{{ alarm_uri }}"
+    }
+}

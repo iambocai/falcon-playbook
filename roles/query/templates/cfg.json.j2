@@ -1,0 +1,16 @@
+{
+    "log_level":    "{{ query['log_level'] }}",
+    "slowlog":      {{ query['slowlog'] }},
+    "http": {
+        "enabled":  {{ query['http']['enabled']|lower }},
+        "listen":   "0.0.0.0:{{ query['http']['listen'] }}"
+    },
+    "graph": {
+        "backends":         "./graph_backends.txt",
+        "reload_interval":  {{ query['graph']['reload_interval'] }},
+        "timeout":          {{ query['graph']['timeout'] }},
+        "max_conns":        {{ query['graph']['max_conns'] }},
+        "max_idle":         {{ query['graph']['max_idle'] }},
+        "replicas":         {{ query['graph']['replicas'] }}
+    }
+}

@@ -1,0 +1,11 @@
+---
+#
+
+- name: restart {{ module }}
+  shell: "su -l {{ deploy_user }} -c '{{ deploy_root }}/{{ module }}/control restart'"
+
+- wait_for: port={{ port['http'][module] }} delay=5
+
+- name: check {{ module }} status
+  shell: "curl http://127.0.0.1:{{ port['http'][module] }}{{ health[module] }} |grep ok"
+

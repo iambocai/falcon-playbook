@@ -1,0 +1,264 @@
+
+## -------------- global ------------##
+
+# set GOPATH
+gopath: /home/work/workspace
+# open-falcon project code root, relative to gopath
+code_root: src/github.com/open-falcon
+# compile
+compile:
+  - all
+  - agent
+  - transfer
+  - graph
+  - query
+  - hbs
+  - task
+# deploy config
+deploy_root: /home/falcon
+deploy_group: falcon
+deploy_gid: 1988
+deploy_user: falcon
+deploy_uid: 1988
+
+## -------------- prepare ------------##
+
+# whether to install golang environment? 
+install_go_env: yes
+# whether to install compile tools?
+install_compile_env: yes
+# whether clone code?
+clone_code: yes
+
+## -------------- agent --------------##
+
+agent:
+  debug: false
+  hostname: "{{ ansible_default_ipv4['address'] }}"
+  plugin:
+    enabled: false
+    git: https://coding.net/ulricqin/plugin.git
+  heartbeat:
+    enabled: true
+    addr: 127.0.0.1:6030
+    interval: 60
+    timeout: 1000
+  transfer:
+    enabled: true
+    addr: 127.0.0.1:8433
+    interval: 60
+    timeout: 1000
+  http:
+    enabled: true
+    listen: 1988
+  ignore:
+    - cpu.busy
+    - cpu.nice
+ 
+## --------------- transfer -----------##
+transfer:
+  debug: true
+  http:
+    listen: 6060
+  rpc:
+    listen: 8433
+  judge:
+    enabled: true
+    batch: 200
+    connTimeout: 1000
+    callTimeout: 5000
+    maxConns: 32
+    maxIdle: 32
+    replicas: 500
+
+## --------------- graph --------------##
+graph:
+  debug: false
+  http:
+    listen: 6071
+  rpc:
+    listen: 6070
+  rrd:
+    storage: /home/falcon/data/graph/6070
+  db:
+    dsn: root:@tcp(127.0.0.1:3306)/graph?loc=Local&parseTime=true
+    maxIdle: 4
+ 
+
+## --------------- query --------------##
+query:
+  log_level: info
+  slowlog: 2000
+  http:
+    enabled: true
+    listen: 9966
+  graph:
+    reload_interval: 60
+    timeout: 4000
+    max_conns: 200
+    max_idle: 50
+    replicas: 500
+  
+
+## ------------- dashboard ------------##
+install_dashboard_env: yes
+dashboard:
+  gunicorn:
+    workers: 4
+    bind: 8081
+  config:
+    debug: true
+    secret_key: secret-key
+    session_cookie_name: open-falcon
+    permanent_session_lifetime: 3600 * 24 * 30
+    site_cookie: open-falcon-ck
+
+## --------------- sender -------------##
+sender:
+  debug: true
+  http:
+    listen: 6066
+  Redis:
+    maxIdle: 5
+  worker:
+    sms: 10
+    mail: 50
+  api:
+    sms: http://11.11.11.11:8000/sms
+    mail: http://11.11.11.11:8000/mail
+
+## --------------- fe -----------------##
+fe:
+  log_level: info
+  company: MI
+  http:
+    listen: 1234
+  cache:
+    enabled: true
+    idle: 10
+    max: 1000
+    timeout:
+      conn: 10000
+      read: 5000
+      write: 5000
+  salt: ""
+  canRegister: true
+  ldap:
+    enabled: false
+    addr: ldap.example.com:389
+  uic:
+    idle: 10
+    max: 100
+    
+## ------------- portal ---------------##
+install_portal_env: yes
+portal:
+  gunicorn:
+    workers: 4
+    bind: 5050
+  config:
+    debug: true
+    uic_token: ""
+    contact: admin@localdomain
+    secret_key: 4e.5tyg8-u9ioj
+    session_cookie_name: falcon-portal
+    permanent_session_lifetime: 3600 * 24 * 30
+
+## --------------- hbs ----------------##
+hbs:
+  debug: false
+  database: root@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&parseTime=true
+  maxIdle: 100
+  rpc:
+    listen: 6030
+  http:
+    listen: 6031
+
+## --------------- judge -------------##
+judge:
+  debug: false
+  debugHost: nil
+  remain: 11
+  http:
+    listen: 6081
+  rpc:
+    listen: 6080
+  Hbs:
+    timeout: 300
+    interval: 60
+  alarm:
+    enabled: true
+    minInterval: 300
+    Redis:
+      maxIdle: 5
+      connTimeout: 5000
+      readTimeout: 5000
+      writeTimeout: 5000
+
+## --------------- links -------------##
+install_links_env: yes
+links:
+  gunicorn:
+    workers: 4
+    bind: 5090
+  config:
+    debug: true
+    secret_key: 4e.5tyg8-u9ioj
+    session_cookie_name: falcon-links
+    permanent_session_lifetime: 3600 * 24 * 30
+
+## --------------- alarm -------------##
+alarm:
+  debug: false
+  uicToken: ""
+  http:
+    listen: 9912
+  Redis:
+    maxIdle: 5
+
+## --------------- task --------------##
+task:
+  debug: false
+  http:
+    listen: 8001
+  monitor:
+    mailUrl: http://tycloudstart.com:1986/mail/sender
+    mailTos: root@localdomain
+    cluster:
+      - graph
+      - transfer
+  collector:
+    cluster:
+      - graph
+      - transfer
+      - task
+
+port:
+  http:
+    agent: "{{ agent['http']['listen'] }}"
+    transfer: "{{ transfer['http']['listen'] }}"
+    graph: "{{ graph['http']['listen'] }}"
+    query: "{{ query['http']['listen'] }}"
+    sender: "{{ sender['http']['listen'] }}"
+    fe: "{{ fe['http']['listen'] }}"
+    hbs: "{{ hbs['http']['listen'] }}"
+    judge: "{{ judge['http']['listen'] }}"
+    alarm: "{{ alarm['http']['listen'] }}"
+    task: "{{ task['http']['listen'] }}"
+    dashboard: "{{ dashboard['gunicorn']['bind'] }}"
+    portal: "{{ portal['gunicorn']['bind'] }}"
+    links: "{{ links['gunicorn']['bind'] }}"
+health:
+  agent: /health
+  transfer: /health
+  graph: /health
+  query: /health
+  sender: /health
+  fe: /health
+  hbs: /health
+  judge: /health
+  alarm: /health
+  task: /health
+  dashboard: /
+  portal: /api/health
+  links: /api/health

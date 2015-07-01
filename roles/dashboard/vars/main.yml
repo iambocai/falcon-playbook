@@ -1,0 +1,5 @@
+---
+# file:roles/dashboard/vars/main.yml
+
+module: dashboard
+frame: rrd

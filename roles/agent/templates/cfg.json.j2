@@ -1,0 +1,39 @@
+{
+    "debug": {{ agent['debug']|lower }},
+    "hostname": "{{ agent['hostname'] }}",
+    "ip": "",
+    "plugin": {
+        "enabled": {{ agent['plugin']['enabled']|lower }},
+        "dir": "./plugin",
+        "git": "{{ agent['plugin']['git'] }}",
+        "logs": "./logs"
+    },
+    "heartbeat": {
+        "enabled":  {{ agent['heartbeat']['enabled']|lower }},
+        "addr":    "{{ heartbeat_ip }}:{{ hbs['rpc']['listen'] }}",
+        "interval": {{ agent['heartbeat']['interval'] }},
+        "timeout":  {{ agent['heartbeat']['timeout'] }}
+    },
+    "transfer": {
+        "enabled":  {{ agent['transfer']['enabled']|lower }},
+        "addr":    "{{ transfer_ip }}:{{ transfer['rpc']['listen'] }}",
+        "interval": {{ agent['transfer']['interval'] }},
+        "timeout":  {{ agent['transfer']['timeout'] }}
+    },
+    "http": {
+        "enabled":  {{ agent['http']['enabled']|lower }},
+        "listen": ":{{ agent['http']['listen'] }}"
+    },
+    "collector": {
+        "ifacePrefix": ["eth", "em"]
+    },
+    "ignore": {
+{% for item in agent['ignore'] %}
+{% if loop.last %}
+        "{{ item }}":true
+{% else %}
+        "{{ item }}":true,
+{% endif %}
+{% endfor %}
+    }
+}

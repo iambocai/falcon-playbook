@@ -1,0 +1,4 @@
+---
+# file:roles/prepare/vars/main.yml
+
+module: prepare
