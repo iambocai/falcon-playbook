@@ -34,7 +34,8 @@ clone_code: yes
 
 agent:
   debug: false
-  hostname: "{{ ansible_default_ipv4['address'] }}"
+  #  to use host ip as key, modify to hostname: "{{ ansible_default_ipv4['address'] }}"
+  hostname: ""
   plugin:
     enabled: false
     git: https://coding.net/ulricqin/plugin.git
