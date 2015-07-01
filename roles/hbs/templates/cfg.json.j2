@@ -1,6 +1,6 @@
 {
     "debug": {{ hbs['debug']|lower }},
-    "database": "{{ hbs['database'] }}",
+    "database": "{{ dsn_hbs_portal }}",
     "hosts": "",
     "maxIdle": {{ hbs['maxIdle'] }},
     "listen": ":{{ hbs['rpc']['listen'] }}",

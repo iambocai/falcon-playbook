@@ -3,17 +3,21 @@
 
 # set GOPATH
 gopath: /home/work/workspace
+
 # open-falcon project code root, relative to gopath
 code_root: src/github.com/open-falcon
-# compile
+
+# a list of modules should be compiled befor install,
+# "all" means all modules 
 compile:
   - all
-  - agent
-  - transfer
-  - graph
-  - query
-  - hbs
-  - task
+# - agent
+# - transfer
+# - graph
+# - query
+# - hbs
+# - task
+
 # deploy config
 deploy_root: /home/falcon
 deploy_group: falcon
@@ -23,18 +27,22 @@ deploy_uid: 1988
 
 ## -------------- prepare ------------##
 
-# whether to install golang environment? 
+# whether to install golang environment on this host? 
 install_go_env: yes
-# whether to install compile tools?
+
+# whether to install compile tools on this host?
 install_compile_env: yes
-# whether clone code?
+
+# whether clone code (in order to compile and deploy)?
 clone_code: yes
+
 
 ## -------------- agent --------------##
 
 agent:
   debug: false
-  #  to use host ip as key, modify to hostname: "{{ ansible_default_ipv4['address'] }}"
+  # if you want to use host ip as key, 
+  # modify to hostname: "{{ ansible_default_ipv4['address'] }}"
   hostname: ""
   plugin:
     enabled: false
@@ -168,7 +176,6 @@ portal:
 ## --------------- hbs ----------------##
 hbs:
   debug: false
-  database: root@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&parseTime=true
   maxIdle: 100
   rpc:
     listen: 6030
