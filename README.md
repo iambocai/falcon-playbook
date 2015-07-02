@@ -4,7 +4,7 @@ Ansible Playbooks for Open-Falon
 系统需求
 ------------------------------------
 
-CetOS/RHEL 6.x
+CentOS/RHEL 6.x
 
 ansible >= 1.8
 
@@ -24,7 +24,7 @@ ansible >= 1.8
 	ansible-playbook prepare.yml
 `
 	
-3.   参照open-falcon的官方文档初始化redis 和mysql，参见 [这里](ttp://book.open-falcon.com/zh/install/prepare.html)，请确保redis和mysql都开放了对相关模块的读写权限。
+3.   参照open-falcon的官方文档初始化redis 和mysql，参见 [这里](http://book.open-falcon.com/zh/install/prepare.html)，请确保redis和mysql都开放了对相关模块的读写权限。
 
 4.   修改hosts文件中的配置，`注意是这个项目里带的这个哦！不是系统的hosts文件`, 按照你的实际情况修改数据库配置和各个模块的机器列表
 
