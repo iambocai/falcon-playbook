@@ -11,6 +11,9 @@ dsn_task_graph=root:@tcp(192.168.70.128:3306)/graph?loc=Local&parseTime=true
 # hbs模块连portal数据库使用的连接参数
 dsn_hbs_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true
 
+# graph模块连接graph数据库使用的连接参数
+dsn_graph_graph=root:@tcp(192.168.70.128:3306)/graph?loc=Local&parseTime=true
+
 # dashboard模块连dashboard数据库使用的连接参数
 dsn_dashboard_dashboard_host=192.168.70.128
 dsn_dashboard_dashboard_port=3306
