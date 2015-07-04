@@ -12,6 +12,12 @@ ansible >= 1.8
 
 使用方法
 ------------------------------------
+0. 安装基本包保平安
+
+`
+	yum groupinstall -y 'Development tools'
+	yum install -y ansible
+`
 
 1. clone 代码
 `
@@ -21,7 +27,7 @@ ansible >= 1.8
 2.  洗手，准备环境：
 `
 	cd falcon-playbook
-	ansible-playbook prepare.yml
+	ansible-playbook prepare.yml -c local
 `
 	
 3.   参照open-falcon的官方文档初始化redis 和mysql，参见 [这里](http://book.open-falcon.com/zh/install/prepare.html)，请确保redis和mysql都开放了对相关模块的读写权限。
