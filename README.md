@@ -15,6 +15,7 @@ ansible >= 1.8
 0. 安装基本包保平安
 
 >	yum groupinstall -y 'Development tools'
+>
 >	yum install -y ansible
 
 1. clone 代码
@@ -25,6 +26,7 @@ ansible >= 1.8
 2.  洗手，准备环境：
 
 >	cd falcon-playbook
+>
 >	ansible-playbook prepare.yml -c local
 
 	
