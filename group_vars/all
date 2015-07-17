@@ -66,7 +66,7 @@ agent:
  
 ## --------------- transfer -----------##
 transfer:
-  debug: true
+  debug: false
   http:
     listen: 6060
   rpc:
@@ -115,7 +115,7 @@ dashboard:
     workers: 4
     bind: 8081
   config:
-    debug: true
+    debug: false
     secret_key: secret-key
     session_cookie_name: open-falcon
     permanent_session_lifetime: 3600 * 24 * 30
@@ -123,7 +123,7 @@ dashboard:
 
 ## --------------- sender -------------##
 sender:
-  debug: true
+  debug: false
   http:
     listen: 6066
   Redis:
@@ -165,7 +165,7 @@ portal:
     workers: 4
     bind: 5050
   config:
-    debug: true
+    debug: false
     uic_token: ""
     contact: admin@localdomain
     secret_key: 4e.5tyg8-u9ioj
@@ -209,7 +209,7 @@ links:
     workers: 4
     bind: 5090
   config:
-    debug: true
+    debug: false
     secret_key: 4e.5tyg8-u9ioj
     session_cookie_name: falcon-links
     permanent_session_lifetime: 3600 * 24 * 30
