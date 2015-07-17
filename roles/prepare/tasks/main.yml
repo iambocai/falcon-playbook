@@ -34,3 +34,27 @@
   git: repo=https://github.com/XiaoMi/open-falcon.git dest={{ gopath }}/{{ code_root }} recursive=yes
   when:
     - clone_code
+
+- name: compile golang modules
+  shell: export GOPATH={{ gopath }} && cd {{ gopath }}/{{ code_root }}/{{ item }} && go get ./... && ./control build && ./control pack && mv falcon-{{ item }}*.tar.gz {{ item }}.tar.gz
+  when: "'{{ item }}' in compile or 'all' in compile"
+  with_items:
+    - agent
+    - transfer
+    - graph
+    - query
+    - sender
+    - fe
+    - hbs
+    - judge
+    - alarm
+    - task
+
+- name: complie python modules
+  shell: cd {{ gopath }}/{{ code_root }}/{{ item }}/ && ./control pack && mv falcon-{{ item }}*.tar.gz  {{ item }}.tar.gz
+  when:
+    - "'{{ item }}' in compile or 'all' in compile"
+  with_items:
+    - dashboard
+    - portal
+    - links

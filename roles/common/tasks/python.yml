@@ -1,12 +1,6 @@
 ---
 # file:
 
-- name: make {{ module }} package
-  shell: cd {{ gopath }}/{{ code_root }}/{{ module }}/ && ./control pack && mv falcon-{{ module }}*.tar.gz  {{ module }}.tar.gz
-  when:
-    - "'{{ module }}' in compile or 'all' in compile"
-  connection: local
-
 - name: make {{ module }} dir
   file:
     path={{ deploy_root }}/{{ module }}

@@ -1,12 +1,6 @@
 ---
 # file: roles/{{ module }}/tasks/main.yml
 
-
-- name: compile {{ module }}
-  shell: export GOPATH={{ gopath }} && cd {{ gopath }}/{{ code_root }}/{{ module }} && go get ./... && ./control build && ./control pack && mv falcon-{{ module }}*.tar.gz {{ module }}.tar.gz
-  when: "'{{ module }}' in compile or 'all' in compile" 
-  connection: local
-
 - name: make {{ module }} dir
   file: 
     path={{ deploy_root }}/{{ module }} 
