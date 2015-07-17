@@ -4,6 +4,7 @@
 - name: install dependency
   yum: name={{ item }} state=present
   with_items:
+    - "@development-tools"
     - python-virtualenv
     - python-pip
     - mysql-devel
