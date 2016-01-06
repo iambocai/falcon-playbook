@@ -30,4 +30,5 @@
     backup=yes
   notify:
     - restart {{ module }}
+    - wait {{ module }} active
     - check {{ module }} status
