@@ -2,13 +2,12 @@
     "pid": "{{ deploy_root }}/{{ module }}/var/app.pid",
     "log": "info",
     "debug": {{ graph['debug']|lower }},
-    "debugChecksum": "nil",
     "http": {
-        "enabled": true,
+        "enable": true,
         "listen": "0.0.0.0:{{ graph['http']['listen'] }}"
     },
     "rpc": {
-        "enabled": true,
+        "enable": true,
         "listen": "0.0.0.0:{{ graph['rpc']['listen'] }}"
     },
     "rrd": {
