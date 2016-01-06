@@ -31,7 +31,15 @@
     - install_compile_env
 
 - name: clone codes
-  git: repo=https://github.com/XiaoMi/open-falcon.git dest={{ gopath }}/{{ code_root }} recursive=yes
+  git: repo=https://github.com/XiaoMi/open-falcon.git dest={{ gopath }}/{{ code_root }} recursive=yes force=yes
+  when:
+    - clone_code
+
+- name: clone additional modules
+  git: repo=https://github.com/open-falcon/{{ item }}.git dest={{ gopath }}/{{ code_root }}/{{ item }} force=yes
+  with_items:
+    - aggregator
+    - nodata
   when:
     - clone_code
 
@@ -41,6 +49,7 @@
   with_items:
     - agent
     - transfer
+    - gateway
     - graph
     - query
     - sender
@@ -49,6 +58,8 @@
     - judge
     - alarm
     - task
+    - aggregator
+    - nodata
 
 - name: complie python modules
   shell: cd {{ gopath }}/{{ code_root }}/{{ item }}/ && ./control pack && mv falcon-{{ item }}*.tar.gz  {{ item }}.tar.gz

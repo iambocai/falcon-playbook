@@ -14,6 +14,12 @@ dsn_hbs_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=t
 # graph模块连接graph数据库使用的连接参数
 dsn_graph_graph=root:@tcp(192.168.70.128:3306)/graph?loc=Local&parseTime=true
 
+# aggregator模块连接portal数据库使用到连接参数
+dsn_aggregator_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true
+
+# nodata模块连接portal数据库使用到连接参数
+dsn_nodata_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true&wait_timeout=604800
+
 # dashboard模块连dashboard数据库使用的连接参数
 dsn_dashboard_dashboard_host=192.168.70.128
 dsn_dashboard_dashboard_port=3306
@@ -66,12 +72,12 @@ query_uri=http://192.168.70.129:9966
 [agent:vars]
 # agent保持最新的使用的心跳服务器ip
 heartbeat_ip=192.168.70.128
-# agent汇报数据使用的transfer服务器ip
-transfer_ip=192.168.70.128
+# agent汇报数据使用的transfer或gateway服务器ip
+transfer_ip=192.168.70.129
 
 [transfer]
 192.168.70.128
-192.168.70.129
+#192.168.70.129
 [graph]
 192.168.70.128 
 192.168.70.129
@@ -105,3 +111,17 @@ transfer_ip=192.168.70.128
 [task]
 192.168.70.128
 192.168.70.129
+[gateway]
+#192.168.70.128
+192.168.70.129
+[aggregator]
+192.168.70.128 id_begin=1 id_end=-1
+[aggregator:vars]
+# aggregator汇报数据使用的transfer或gateway服务器ip
+transfer_ip=192.168.70.128
+
+[nodata]
+192.168.70.128
+[nodata:vars]
+transfer_ip=192.168.70.128
+

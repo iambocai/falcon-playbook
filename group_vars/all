@@ -80,6 +80,21 @@ transfer:
     maxIdle: 32
     replicas: 500
 
+## --------------- gateway -----------##
+gateway:
+  debug: false
+  http:
+    listen: 6060
+  rpc:
+    listen: 8433
+  transfer:
+    enabled: true
+    batch: 200
+    connTimeout: 1000
+    callTimeout: 5000
+    maxConns: 32
+    maxIdle: 32
+
 ## --------------- graph --------------##
 graph:
   debug: false
@@ -240,10 +255,41 @@ task:
       - transfer
       - task
 
+## --------------- aggregator -------##
+aggregator:
+  debug: false
+  http:
+    listen: 6055
+  database:
+    idle: 10
+    interval: 55
+
+## --------------- nodata -----------##
+nodata:
+  debug: false
+  http:
+    listen: 6090
+  query:
+    connectTimeout: 5000
+    requestTimeout: 30000
+  config:
+    maxIdle: 4
+  collector:
+    batch: 200
+    concurrent: 10
+  sender:
+    connectTimeout: 5000
+    requestTimeout: 30000
+    batch: 500
+    block:
+      threshold: 32
+
+## --------------- misc -------------##
 port:
   http:
     agent: "{{ agent['http']['listen'] }}"
     transfer: "{{ transfer['http']['listen'] }}"
+    gateway: "{{ gateway['http']['listen'] }}"
     graph: "{{ graph['http']['listen'] }}"
     query: "{{ query['http']['listen'] }}"
     sender: "{{ sender['http']['listen'] }}"
@@ -255,9 +301,12 @@ port:
     dashboard: "{{ dashboard['gunicorn']['bind'] }}"
     portal: "{{ portal['gunicorn']['bind'] }}"
     links: "{{ links['gunicorn']['bind'] }}"
+    aggregator: "{{ aggregator['http']['listen'] }}"
+    nodata: "{{ nodata['http']['listen'] }}"
 health:
   agent: /health
   transfer: /health
+  gateway: /health
   graph: /health
   query: /health
   sender: /health
@@ -269,3 +318,5 @@ health:
   dashboard: /
   portal: /api/health
   links: /api/health
+  aggregator: /health
+  nodata: /health

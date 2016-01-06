@@ -18,6 +18,14 @@
   tags:
     - transfer
 
+- hosts: gateway
+  user: root
+  roles:
+    - common
+    - gateway
+  tags:
+    - gateway
+
 - hosts: graph
   user: root
   roles:
@@ -105,3 +113,19 @@
     - task
   tags:
     - task
+
+- hosts: aggregator
+  user: root
+  roles:
+    - common
+    - aggregator
+  tags:
+    - aggregator
+
+- hosts: nodata
+  user: root
+  roles:
+    - common
+    - nodata
+  tags:
+    - nodata

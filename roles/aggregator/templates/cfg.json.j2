@@ -1,0 +1,18 @@
+{
+    "debug": {{ aggregator['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ aggregator['http']['listen'] }}"
+    },
+    "database": {
+        "addr": "{{ dsn_aggregator_portal }}",
+        "idle": {{ aggregator['database']['idle'] }},
+        "ids": [{{ id_begin }}, {{ id_end }}],
+        "interval":{{ aggregator['database']['interval'] }}
+    },
+    "api": {
+        "hostnames": "{{ portal_uri }}/api/group/%s/hosts.json",
+        "push": "http://{{ transfer_ip }}:{{ transfer['http']['listen'] }}/api/push",
+        "graphLast": "{{ query_uri }}/graph/last"
+    }
+}

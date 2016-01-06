@@ -1,0 +1,33 @@
+{
+    "debug": {{ nodata['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ nodata['http']['listen'] }}"
+    },
+    "query":{
+        "connectTimeout": {{ nodata['query']['connectTimeout'] }},
+        "requestTimeout": {{ nodata['query']['requestTimeout'] }},
+        "queryAddr": "{{ query_uri[7:] }}"
+    },
+    "config": {
+        "enabled": true,
+        "dsn": "{{ dsn_nodata_portal }}",
+        "maxIdle": {{ nodata['config']['maxIdle'] }}
+    },
+    "collector":{
+        "enabled": true,
+        "batch": {{ nodata['collector']['batch'] }},
+        "concurrent": {{ nodata['collector']['concurrent'] }}
+    },
+    "sender":{
+        "enabled": true,
+        "connectTimeout": {{ nodata['sender']['connectTimeout'] }},
+        "requestTimeout": {{ nodata['sender']['requestTimeout'] }},
+        "transferAddr": "{{ transfer_ip }}:{{ transfer['http']['listen'] }}",
+        "batch": {{ nodata['sender']['batch'] }},
+        "block": {
+            "enabled": false,
+            "threshold": {{ nodata['sender']['block']['threshold'] }}
+        }
+    }
+}

@@ -1,0 +1,4 @@
+---
+# file:roles/gateway/vars/main.yml
+
+module: gateway

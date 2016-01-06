@@ -1,0 +1,33 @@
+{
+    "debug": {{ gateway['debug']|lower }},
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ gateway['http']['listen'] }}"
+    },
+    "rpc": {
+        "enabled": true,
+        "listen": "0.0.0.0:{{ gateway['rpc']['listen'] }}"
+    },
+    "socket": {
+        "enabled": false,
+        "listen": "0.0.0.0:4444",
+        "timeout": 3600
+    },
+    "transfer": {
+        "enabled": {{ gateway['transfer']['enabled']|lower }},
+        "batch": {{ gateway['transfer']['batch'] }},
+        "connTimeout": {{ gateway['transfer']['connTimeout'] }},
+        "callTimeout": {{ gateway['transfer']['callTimeout'] }},
+        "maxConns": {{ gateway['transfer']['maxConns'] }},
+        "maxIdle": {{ gateway['transfer']['maxIdle'] }},
+        "cluster": {
+{% for host in groups['transfer'] %}
+{% if loop.last %}
+           "transfer-{{ loop.index }}" : "{{ host }}:{{ transfer['rpc']['listen'] }}"
+{% else %}
+           "transfer-{{ loop.index }}" : "{{ host }}:{{ transfer['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
+        }
+    }
+}

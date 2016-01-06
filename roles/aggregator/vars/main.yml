@@ -1,0 +1,4 @@
+---
+# file:roles/aggregator/vars/main.yml
+
+module: aggregator
