@@ -169,6 +169,10 @@ fe:
   ldap:
     enabled: false
     addr: ldap.example.com:389
+    baseDN: dc=example,dc=com
+    bindDN: cn=mananger,dc=example,dc=com
+    bindPasswd: 12345678
+    userField: uid
   uic:
     idle: 10
     max: 100

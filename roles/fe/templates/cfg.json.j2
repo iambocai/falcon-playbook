@@ -20,7 +20,12 @@
     "canRegister": {{ fe['canRegister']|lower }},
     "ldap": {
         "enabled": {{ fe['ldap']['enabled']|lower }},
-        "addr": " {{ fe['ldap']['addr'] }}"
+        "addr": "{{ fe['ldap']['addr'] }}",
+        "baseDN": "{{ fe['ldap']['baseDN'] }}",
+        "bindDN": "{{ fe['ldap']['bindDN'] }}",
+        "bindPasswd": "{{ fe['ldap']['bindPasswd'] }}",
+        "userField": "{{ fe['ldap']['userField'] }}",
+        "attributes": ["sn","mail","telephoneNumber"]
     },
     "uic": {
         "addr": "{{ dsn_fe_uic }}",
