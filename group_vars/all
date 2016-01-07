@@ -46,7 +46,7 @@ agent:
   hostname: ""
   plugin:
     enabled: false
-    git: https://coding.net/ulricqin/plugin.git
+    git: https://github.com/open-falcon/plugin.git
   heartbeat:
     enabled: true
     addr: 127.0.0.1:6030
@@ -60,6 +60,7 @@ agent:
   http:
     enabled: true
     listen: 1988
+    backdoor: false
   ignore:
     - cpu.busy
     - cpu.nice

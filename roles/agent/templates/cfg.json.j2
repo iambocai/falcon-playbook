@@ -22,7 +22,8 @@
     },
     "http": {
         "enabled":  {{ agent['http']['enabled']|lower }},
-        "listen": ":{{ agent['http']['listen'] }}"
+        "listen": ":{{ agent['http']['listen'] }}",
+        "backdoor": {{ agent['http']['backdoor']|lower }}
     },
     "collector": {
         "ifacePrefix": ["eth", "em"]
