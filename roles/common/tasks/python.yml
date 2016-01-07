@@ -42,6 +42,7 @@
     follow=yes
   notify:
     - restart {{ module }}
+    - wait {{ module }} active
     - check {{ module }} status
 
 - include: python_env.yml
@@ -49,4 +50,5 @@
     - "install_{{ module }}_env"
   notify:
     - restart {{ module }}
+    - wait {{ module }} active
     - check {{ module }} status

@@ -243,12 +243,9 @@ task:
   debug: false
   http:
     listen: 8001
-  monitor:
-    mailUrl: http://tycloudstart.com:1986/mail/sender
-    mailTos: root@localdomain
-    cluster:
-      - graph
-      - transfer
+  index:
+    maxIdle: 4
+    autoDelete: true
   collector:
     cluster:
       - graph

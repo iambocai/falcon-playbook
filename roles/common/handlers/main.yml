@@ -2,7 +2,8 @@
 #
 
 - name: restart {{ module }}
-  shell: "su -l {{ deploy_user }} -c '{{ deploy_root }}/{{ module }}/control restart'"
+  shell: "su -l {{ deploy_user }} -c 'cd {{ deploy_root }}/{{ module }}/ && ./control stop ; sleep 5 && ./control start'"
+  ignore_errors: yes
 
 - name: wait {{ module }} active
   wait_for: port={{ port['http'][module] }} delay=5 timeout=60

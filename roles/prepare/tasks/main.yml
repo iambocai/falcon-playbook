@@ -31,20 +31,29 @@
     - install_compile_env
 
 - name: clone codes
-  git: repo=https://github.com/XiaoMi/open-falcon.git dest={{ gopath }}/{{ code_root }} recursive=yes force=yes
-  when:
-    - clone_code
-
-- name: clone additional modules
   git: repo=https://github.com/open-falcon/{{ item }}.git dest={{ gopath }}/{{ code_root }}/{{ item }} force=yes
   with_items:
+    - agent
+    - transfer
+    - gateway
+    - graph
+    - query
+    - sender
+    - fe
+    - hbs
+    - judge
+    - alarm
+    - task
+    - dashboard
+    - portal
+    - links
     - aggregator
     - nodata
   when:
     - clone_code
 
 - name: compile golang modules
-  shell: export GOPATH={{ gopath }} && cd {{ gopath }}/{{ code_root }}/{{ item }} && go get ./... && ./control build && ./control pack && mv falcon-{{ item }}*.tar.gz {{ item }}.tar.gz
+  shell: export GOPATH={{ gopath }} && cd {{ gopath }}/{{ code_root }}/{{ item }} && git checkout master --force && git pull && go get ./... && ./control build && ./control pack && mv falcon-{{ item }}*.tar.gz {{ item }}.tar.gz
   when: "'{{ item }}' in compile or 'all' in compile"
   with_items:
     - agent
