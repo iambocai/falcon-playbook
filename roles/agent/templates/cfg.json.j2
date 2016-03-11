@@ -16,7 +16,9 @@
     },
     "transfer": {
         "enabled":  {{ agent['transfer']['enabled']|lower }},
-        "addr":    "{{ transfer_ip }}:{{ transfer['rpc']['listen'] }}",
+        "addrs": [
+            "{{ transfer_ip }}:{{ transfer['rpc']['listen'] }}"
+        ],
         "interval": {{ agent['transfer']['interval'] }},
         "timeout":  {{ agent['transfer']['timeout'] }}
     },
