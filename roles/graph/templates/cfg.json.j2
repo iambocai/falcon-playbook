@@ -16,5 +16,14 @@
     "db": {
         "dsn": "{{ dsn_graph_graph }}",
         "maxIdle": {{ graph['db']['maxIdle'] }}
+    },
+    "callTimeout": 5000,
+    "migrate": {
+        "enabled": false,
+        "concurrency": 2,
+        "replicas": 500,
+        "cluster": {
+            "graph-00" : "127.0.0.1:6070"
+        }
     }
 }
