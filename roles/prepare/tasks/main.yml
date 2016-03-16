@@ -58,7 +58,6 @@
   with_items:
     - agent
     - transfer
-    - gateway
     - graph
     - query
     - sender

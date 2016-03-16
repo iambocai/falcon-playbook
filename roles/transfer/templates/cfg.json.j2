@@ -32,14 +32,13 @@
         }
     },
     "graph": {
-        "enabled": true,
-        "batch": 200,
-        "connTimeout": 1000,
-        "callTimeout": 5000,
-        "maxConns": 32,
-        "maxIdle": 32,
-        "replicas": 500,
-        "migrating": false,
+        "enabled": {{ transfer['graph']['enabled']|lower }},
+        "batch": {{ transfer['graph']['batch'] }},
+        "connTimeout": {{ transfer['graph']['connTimeout'] }},
+        "callTimeout": {{ transfer['graph']['callTimeout'] }},
+        "maxConns": {{ transfer['graph']['maxConns'] }},
+        "maxIdle": {{ transfer['graph']['maxIdle'] }},
+        "replicas": {{ transfer['graph']['replicas'] }},
         "cluster": {
 {% for host in groups['graph'] %}
 {% if loop.last %}
@@ -48,8 +47,16 @@
            "graph-{{ loop.index }}" : "{{ host }}:{{ graph['rpc']['listen'] }}",
 {% endif %}
 {% endfor %}
-        },
-        "clusterMigrating": {
         }
+    },
+    "tsdb": {
+        "enabled": {{ transfer['tsdb']['enabled']|lower }},
+        "batch": {{ transfer['tsdb']['batch'] }},
+        "connTimeout": {{ transfer['tsdb']['connTimeout'] }},
+        "callTimeout": {{ transfer['tsdb']['callTimeout'] }},
+        "maxConns": {{ transfer['tsdb']['maxConns'] }},
+        "maxIdle": {{ transfer['tsdb']['maxIdle'] }},
+        "retry": {{ transfer['tsdb']['retry'] }},
+        "address": "{{ transfer['tsdb']['address'] }}"
     }
 }

@@ -2,7 +2,7 @@
 ## -------------- global ------------##
 
 # set GOPATH
-gopath: /home/work/workspace
+gopath: /home/homework/chengshengbo
 
 # open-falcon project code root, relative to gopath
 code_root: src/github.com/open-falcon
@@ -19,11 +19,11 @@ compile:
 # - task
 
 # deploy config
-deploy_root: /home/falcon
-deploy_group: falcon
-deploy_gid: 1988
-deploy_user: falcon
-deploy_uid: 1988
+deploy_root: /home/homework/chengshengbo/falcon
+deploy_group: homework
+deploy_gid: 501
+deploy_user: homework
+deploy_uid: 501
 
 ## -------------- prepare ------------##
 
@@ -80,6 +80,23 @@ transfer:
     maxConns: 32
     maxIdle: 32
     replicas: 500
+  graph:
+    enabled: true
+    batch: 200
+    connTimeout: 1000
+    callTimeout: 5000
+    maxConns: 32
+    maxIdle: 32
+    replicas: 500
+  tsdb:
+    enabled: false
+    batch: 200
+    connTimeout: 1000
+    callTimeout: 5000
+    maxConns: 32
+    maxIdle: 32
+    retry: 3
+    address: 127.0.0.1:8088
 
 ## --------------- gateway -----------##
 gateway:
@@ -107,6 +124,11 @@ graph:
     storage: /home/falcon/data/graph/6070
   db:
     maxIdle: 4
+  callTimeout: 5000
+  migrate:
+    enabled: false
+    concurrency: 2
+    replicas: "{{ transfer['graph']['replicas'] }}"
  
 
 ## --------------- query --------------##
@@ -121,6 +143,8 @@ query:
     maxConns: 200
     maxIdle: 50
     replicas: 500
+  api:
+    max: 500
   
 
 ## ------------- dashboard ------------##

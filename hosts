@@ -1,126 +1,113 @@
 [all:vars]
 # redis 服务器地址
-redis=192.168.70.128:6379
+redis=127.0.0.1:6379
 
 # fe模块连uic数据库使用的连接参数
-dsn_fe_uic=root:@tcp(192.168.70.128:3306)/uic?charset=utf8&loc=Asia%2FChongqing
+dsn_fe_uic=root:@tcp(127.0.0.1:3306)/uic?charset=utf8&loc=Asia%2FChongqing
 
 # task模块graph数据库使用的连接参数
-dsn_task_graph=root:@tcp(192.168.70.128:3306)/graph?loc=Local&parseTime=true
+dsn_task_graph=root:@tcp(127.0.0.1:3306)/graph?loc=Local&parseTime=true
 
 # hbs模块连portal数据库使用的连接参数
-dsn_hbs_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true
+dsn_hbs_portal=root@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&parseTime=true
 
 # graph模块连接graph数据库使用的连接参数
-dsn_graph_graph=root:@tcp(192.168.70.128:3306)/graph?loc=Local&parseTime=true
+dsn_graph_graph=root:@tcp(127.0.0.1:3306)/graph?loc=Local&parseTime=true
 
 # aggregator模块连接portal数据库使用到连接参数
-dsn_aggregator_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true
+dsn_aggregator_portal=root@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&parseTime=true
 
 # nodata模块连接portal数据库使用到连接参数
-dsn_nodata_portal=root@tcp(192.168.70.128:3306)/falcon_portal?loc=Local&parseTime=true&wait_timeout=604800
+dsn_nodata_portal=root@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&parseTime=true&wait_timeout=604800
 
 # dashboard模块连dashboard数据库使用的连接参数
-dsn_dashboard_dashboard_host=192.168.70.128
+dsn_dashboard_dashboard_host=127.0.0.1
 dsn_dashboard_dashboard_port=3306
 dsn_dashboard_dashboard_user=root
 dsn_dashboard_dashboard_pass=""
 dsn_dashboard_dashboard_name=dashboard
 
 # dashboard模块连graph数据库使用的连接参数
-dsn_dashboard_graph_host=192.168.70.128
+dsn_dashboard_graph_host=127.0.0.1
 dsn_dashboard_graph_port=3306
 dsn_dashboard_graph_user=root
 dsn_dashboard_graph_pass=""
 dsn_dashboard_graph_name=graph
 
 # portal模块连portal数据库使用的连接参数
-dsn_portal_portal_host=192.168.70.128
+dsn_portal_portal_host=127.0.0.1
 dsn_portal_portal_port=3306
 dsn_portal_portal_user=root
 dsn_portal_portal_pass=""
 dsn_portal_portal_name=falcon_portal
 
 # links模块连links数据库使用的连接参数
-dsn_links_links_host=192.168.70.128
+dsn_links_links_host=127.0.0.1
 dsn_links_links_port=3306
 dsn_links_links_user=root
 dsn_links_links_pass=""
 dsn_links_links_name=falcon_links
 
 # 因为用户可能会自己在模块前面自己做负载均衡以至配置域名，所以把页面里用到的链接都抽取出来放在这里统一管理，如果你没有负载均衡，只改IP就好
-# 监控规则配置页面地址
-portal_uri=http://192.168.70.129:5050
-# 监控数据查看页面地址
-dashboard_uri=http://192.168.70.129:8081
-# 未恢复报警页面地址
-alarm_uri=http://192.168.70.129:9912
-# links的页面地址
-links_uri=http://192.168.70.129:5090
+# 监控规则配置页面地址（内网、外网）
+portal_uri=http://110.120.119.122:5050
+# 监控数据查看页面地址（内网、外网）
+dashboard_uri=http://110.120.119.122:8081
+# 未恢复报警页面地址（内网、外网）
+alarm_uri=http://110.120.119.122:9912
+# links的页面地址（内网）
+links_uri=http://127.0.0.1:5090
 # 导航/uic页面地址(内网)
-fe_uri=http://192.168.70.129:1234
+fe_uri=http://127.0.0.1:1234
 # 导航/uic页面地址(外网)
-fe_ext_uri=http://192.168.70.129:1234
-# Query模块的页面地址
-query_uri=http://192.168.70.129:9966
+fe_ext_uri=http://110.120.119.122:1234
+# Query模块的页面地址(内网)
+query_uri=http://127.0.0.1:9966
 
 # 以下是各个模块需要部署的机器列表，请根据实际情况自行调整
 
 [agent]
-192.168.70.128 transfer_ip=192.168.70.129
-192.168.70.129 transfer_ip=192.168.70.129
+127.0.0.1 transfer_ip=127.0.0.1,127.0.0.1
 [agent:vars]
 # agent保持最新的使用的心跳服务器ip
-heartbeat_ip=192.168.70.128
+heartbeat_ip=127.0.0.1
 
 [transfer]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [graph]
-192.168.70.128 
-192.168.70.129
+127.0.0.1 
 [query]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [dashboard]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [sender]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [fe]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [portal]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [hbs]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [judge]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [links]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [alarm]
-192.168.70.128
-192.168.70.129
+127.0.0.1
 [task]
-192.168.70.128 index_quartz="0 0 0 ? * 0-5"
-192.168.70.129 index_quartz="0 30 0 ? * 0-5"
+127.0.0.1 index_quartz="0 0 0 ? * 0-5"
 [gateway]
 #gateway监听端口与transfer相同，不能和transfer同机器部署
-#192.168.70.128
-#192.168.70.129
+#127.0.0.1
+#127.0.0.1
 [aggregator]
-192.168.70.128 id_begin=1 id_end=-1
+127.0.0.1 id_begin=1 id_end=-1
 [aggregator:vars]
 # aggregator汇报数据使用的transfer或gateway服务器ip
-transfer_ip=192.168.70.128
+transfer_ip=127.0.0.1
 
 [nodata]
-192.168.70.128
+127.0.0.1
 [nodata:vars]
-transfer_ip=192.168.70.128
+transfer_ip=127.0.0.1
 

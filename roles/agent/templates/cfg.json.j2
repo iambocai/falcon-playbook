@@ -16,7 +16,15 @@
     },
     "transfer": {
         "enabled":  {{ agent['transfer']['enabled']|lower }},
-        "addr":    "{{ transfer_ip }}:{{ transfer['rpc']['listen'] }}",
+        "addrs":    [ 
+{% set ips = transfer_ip.split(',')  %}
+{% for item in ips %}
+{% if loop.last %}
+            "{{ item }}:{{ transfer['rpc']['listen'] }}" ],
+{% else %}
+            "{{ item }}:{{ transfer['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
         "interval": {{ agent['transfer']['interval'] }},
         "timeout":  {{ agent['transfer']['timeout'] }}
     },

@@ -19,5 +19,10 @@
 {% endif %}
 {% endfor %}
         }
+    },
+    "api": {
+        "query": "{{ query_uri }}",
+        "dashboard": "{{ dashboard_uri }}",
+        "max": {{ query['api']['max'] }}
     }
 }

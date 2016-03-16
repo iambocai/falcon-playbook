@@ -16,5 +16,20 @@
     "db": {
         "dsn": "{{ dsn_graph_graph }}",
         "maxIdle": {{ graph['db']['maxIdle'] }}
+    },
+    "callTimeout": {{ graph['callTimeout'] }},
+    "migrate": {
+        "enabled": {{ graph['migrate']['enabled']|lower }},
+        "concurrency": {{ graph['migrate']['concurrency'] }},
+        "replicas": {{ graph['migrate']['replicas'] }},
+        "cluster": {
+{% for host in groups['graph'] %}
+{% if loop.last %}
+           "graph-{{ loop.index }}" : "{{ host }}:{{ graph['rpc']['listen'] }}"
+{% else %}
+           "graph-{{ loop.index }}" : "{{ host }}:{{ graph['rpc']['listen'] }}",
+{% endif %}
+{% endfor %}
+        }
     }
 }
