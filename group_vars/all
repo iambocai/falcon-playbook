@@ -68,6 +68,7 @@ agent:
 ## --------------- transfer -----------##
 transfer:
   debug: false
+  minStep: 30
   http:
     listen: 6060
   rpc:
