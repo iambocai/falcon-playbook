@@ -2,8 +2,7 @@
 ## -------------- global ------------##
 
 # set GOPATH
-gopath: /home/homework/chengshengbo
-
+gopath: /home/falcon/golang
 # open-falcon project code root, relative to gopath
 code_root: src/github.com/open-falcon
 
