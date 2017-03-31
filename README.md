@@ -16,6 +16,8 @@ ansible == 1.8.4 (注意，不兼容2.x版本)
 
 >	yum groupinstall -y 'Development tools'
 >
+>	yum install -y libffi-devel
+>
 >	pip install ansible==1.8.4
 
 二.   clone 代码
