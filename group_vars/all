@@ -19,11 +19,11 @@ compile:
 # - task
 
 # deploy config
-deploy_root: /home/homework/chengshengbo/falcon
-deploy_group: homework
-deploy_gid: 501
-deploy_user: homework
-deploy_uid: 501
+deploy_root: /home/falcon
+deploy_group: falcon
+deploy_gid: 600
+deploy_user: falcon
+deploy_uid: 600
 
 ## -------------- prepare ------------##
 
